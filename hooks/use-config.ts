@@ -1,4 +1,5 @@
-import { create } from "zustand";
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 import { Style } from "@/registry/styles";
 import { Theme } from "@/registry/themes";
@@ -9,10 +10,12 @@ type Config = {
   radius: number;
 };
 
-const useConfig = create<Config>((set) => ({
+const configAtom = atomWithStorage<Config>("config", {
   style: "default",
   theme: "zinc",
   radius: 0.5,
-}));
+});
 
-export { useConfig };
+export function useConfig() {
+  return useAtom(configAtom);
+}

@@ -8,6 +8,7 @@ import { MainNav } from "@/components/main-nav";
 import { MobileNav } from "@/components/mobile-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button";
+import { ThemeCustomizer } from "./theme-customizer";
 
 export function SiteHeader() {
   return (
@@ -17,7 +18,7 @@ export function SiteHeader() {
         <MobileNav />
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none">
-            <CommandMenu />
+            <ThemeCustomizer />
           </div>
           <nav className="flex items-center">
             <Link
