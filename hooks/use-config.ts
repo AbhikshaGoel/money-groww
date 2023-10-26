@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 import { Style } from "@/registry/styles";
 import { Theme } from "@/registry/themes";
