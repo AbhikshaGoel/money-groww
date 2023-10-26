@@ -13,6 +13,7 @@ import { siteConfig } from "@/config/site";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -96,11 +97,10 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <SiteFooter />
           </div>
+          <TailwindIndicator />
         </ThemeProvider>
-        <ThemeSwitcher />
         <Toaster />
         <ModalProvider />
-        {children}
       </body>
     </html>
   );
