@@ -21,16 +21,18 @@ export function MainNav() {
       </Link>
       <nav className="flex items-center space-x-6 text-sm font-medium">
         <Link
-          href="/docs"
+          href="/mf"
           className={cn(
             "transition-colors hover:text-foreground/80",
-            pathname === "/docs" ? "text-foreground" : "text-foreground/60"
+            pathname === "/mutualfund"
+              ? "text-foreground"
+              : "text-foreground/60"
           )}
         >
-          Documentation
+          Mutual Fund
         </Link>
         <Link
-          href="/docs/components"
+          href="/ppf"
           className={cn(
             "transition-colors hover:text-foreground/80",
             pathname?.startsWith("/docs/components")
@@ -38,10 +40,10 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Components
+          PPF
         </Link>
         <Link
-          href="/themes"
+          href="/nps"
           className={cn(
             "transition-colors hover:text-foreground/80",
             pathname?.startsWith("/themes")
@@ -49,10 +51,10 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Themes
+          NPS
         </Link>
         <Link
-          href="/examples"
+          href="/fd"
           className={cn(
             "transition-colors hover:text-foreground/80",
             pathname?.startsWith("/examples")
@@ -60,15 +62,15 @@ export function MainNav() {
               : "text-foreground/60"
           )}
         >
-          Examples
+          Fixed Deposit
         </Link>
         <Link
-          href={siteConfig.links.github}
+          href="/gold"
           className={cn(
             "hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
           )}
         >
-          GitHub
+          Gold
         </Link>
       </nav>
     </div>
