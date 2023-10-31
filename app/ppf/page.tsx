@@ -34,6 +34,21 @@ import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 
 const PPFCalculator = () => {
+  const [isYearly, setIsYearly] = useState(true);
+  const [amount, setAmount] = useState(15000);
+  const [timePeriod, setTimePeriod] = useState(15);
+
+  const toggleFrequency = () => {
+    setIsYearly(!isYearly);
+  };
+  const handleAmountSlider = (amount: React.SetStateAction<number>[]) => {
+    setAmount(amount[0]);
+  };
+
+  const handleInterestSlider = (interest: React.SetStateAction<number>[]) => {
+    setTimePeriod(interest[0]);
+  };
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
@@ -43,13 +58,31 @@ const PPFCalculator = () => {
         </CardHeader>
         <CardContent className="grid gap-6">
           <div className="flex items-center space-x-2 md:space-x-4">
-            <Input id="name" placeholder="Yearly Investment" />
-            <Label htmlFor="airplane-mode">Yearly</Label>
-            <Switch id="investment-mode" />
-            <Label htmlFor="airplane-mode">Monthly</Label>
+            <Input
+              id="investment-amount"
+              type="number"
+              placeholder={
+                isYearly ? "Yearly Investment" : "Monthly Investment"
+              }
+              value={amount}
+            />
+            <Label
+              className={isYearly ? `text-green-400` : ``}
+              htmlFor="investment-mode"
+            >
+              Yearly
+            </Label>
+            <Switch id="investment-mode" onCheckedChange={toggleFrequency} />
+            <Label
+              className={isYearly ? `` : `text-green-400`}
+              htmlFor="investment-mode"
+            >
+              Monthly
+            </Label>
           </div>
           <Slider
-            defaultValue={[10000]}
+            onValueChange={handleAmountSlider}
+            defaultValue={[20000]}
             max={150000}
             step={1000}
             className="w-[60%]"
@@ -58,18 +91,26 @@ const PPFCalculator = () => {
             <Label className="w-[60%]" htmlFor="number">
               Time Period (In Years)
             </Label>
-            <Input id="time-period" placeholder="15" />
+            <Input id="time-period" placeholder="15" value={timePeriod} />
           </div>
-          <Slider defaultValue={[10]} max={100} step={1} className="w-[60%]" />
+          <Slider
+            onValueChange={handleInterestSlider}
+            defaultValue={[15]}
+            max={100}
+            step={1}
+            className="w-[60%]"
+          />
           <div className="flex items-center space-x-2 md:space-x-4">
             <Label className="w-[60%]" htmlFor="number">
-              Rate of Interest p.a.
+              Rate of Interest
             </Label>
-            <Input id="time-period" placeholder="15" />
+            <Input id="time-period" placeholder="15%" />
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">Continue</Button>
+          <Button variant={"emerald"} className="w-full">
+            Calculate Returns
+          </Button>
         </CardFooter>
       </Card>
     </div>
