@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,40 +12,52 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Bar,
-  BarChart,
-  ResponsiveContainer,
-  Pie,
-  PieChart,
-  Sector,
-} from "recharts";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
-import { cn } from "@/lib/utils";
 
 const PPFCalculator = () => {
   const [isYearly, setIsYearly] = useState(true);
   const [amount, setAmount] = useState(15000);
   const [timePeriod, setTimePeriod] = useState(15);
+  const [finalAmount, setFinalAmount] = useState(271214);
+  const [interestRate, setInterestRate] = useState("7.1");
+  const [investedAmount, setInvestedAmount] = useState(225000);
+  //var investedAmount = 0;
+
+  const calculatePpfReturns = () => {
+    const principal = amount;
+    const maxAllowedAmount = 150000;
+    setInvestedAmount(principal * timePeriod);
+
+    // Check if the principal amount is greater than the maximum allowed amount
+    if (principal > maxAllowedAmount) {
+      alert("Cannot invest more than 150,000 in a year.");
+      return;
+    }
+
+    // Validate the interest rate input
+    if (interestRate === "") {
+      alert("Please enter a valid interest rate.");
+      return;
+    }
+
+    // Calculate PPF returns based on the provided inputs
+    const interestRateDecimal = +interestRate / 100;
+    const timePeriodInYears = timePeriod;
+    let openingBalance = 0;
+
+    for (let i = 1; i <= timePeriodInYears; i++) {
+      const interest = Math.round(
+        (openingBalance + principal) * interestRateDecimal
+      );
+      openingBalance += principal + interest;
+    }
+
+    setFinalAmount(openingBalance);
+  };
 
   const toggleFrequency = () => {
     setIsYearly(!isYearly);
-  };
-  const handleAmountSlider = (amount: React.SetStateAction<number>[]) => {
-    setAmount(amount[0]);
-  };
-
-  const handleInterestSlider = (interest: React.SetStateAction<number>[]) => {
-    setTimePeriod(interest[0]);
   };
 
   return (
@@ -59,7 +70,6 @@ const PPFCalculator = () => {
         <CardContent className="grid gap-6">
           <div className="flex items-center space-x-2 md:space-x-4">
             <div className="text-emerald-500">&#8377;</div>
-
             <Input
               className="text-emerald-500"
               id="investment-amount"
@@ -68,70 +78,72 @@ const PPFCalculator = () => {
                 isYearly ? "Yearly Investment" : "Monthly Investment"
               }
               value={amount}
+              onChange={(e) => setAmount(parseInt(e.target.value, 10))}
             />
             <Label
-              className={isYearly ? `text-green-400` : ``}
+              className={isYearly ? "text-green-400" : ""}
               htmlFor="investment-mode"
             >
               Yearly
             </Label>
             <Switch id="investment-mode" onCheckedChange={toggleFrequency} />
             <Label
-              className={isYearly ? `` : `text-green-400`}
+              className={isYearly ? "" : "text-green-400"}
               htmlFor="investment-mode"
             >
               Monthly
             </Label>
           </div>
-          <Slider
-            onValueChange={handleAmountSlider}
-            defaultValue={[20000]}
-            max={150000}
-            step={1000}
-            className="w-[60%]"
-          />
           <div className="flex items-center space-x-2 md:space-x-4">
             <Label className="w-[60%]" htmlFor="number">
               Time Period (In Years)
             </Label>
-            <Input id="time-period" placeholder="15%" value={timePeriod} />
+            <Input
+              id="time-period"
+              type="number"
+              placeholder="15"
+              value={timePeriod}
+              onChange={(e) => setTimePeriod(parseInt(e.target.value, 10))}
+            />
           </div>
-          <Slider
-            onValueChange={handleInterestSlider}
-            defaultValue={[15]}
-            max={100}
-            step={1}
-            className="w-[60%]"
-          />
           <div className="flex items-center space-x-2 md:space-x-4">
             <Label className="w-[60%]" htmlFor="number">
               Rate of Interest (In %)
             </Label>
-            <Input id="time-period" placeholder="7.1%" />
+            <Input
+              id="interest-rate"
+              placeholder="7.1%"
+              value={interestRate}
+              onChange={(e) => setInterestRate(e.target.value)}
+            />
           </div>
           <div className="flex flex-row justify-between">
-            <div className="flex flex-col text-base">
+            <div className="flex flex-col text-center text-base">
               Invested Amount
               <div className="text-lg text-indigo-500 font-bold">
-                &#8377; {"57689"}
+                &#8377; {investedAmount}
               </div>
             </div>
-            <div className="flex flex-col text-base">
+            <div className="flex flex-col text-center text-base">
               Interest Earned
               <div className="text-lg text-sky-500 font-bold">
-                &#8377; {"57689"}
+                &#8377; {finalAmount - amount}
               </div>
             </div>
-            <div className="flex flex-col text-base">
+            <div className="flex flex-col text-center text-base">
               Accumulated Amount
               <div className="text-lg text-emerald-500 font-bold">
-                &#8377; {"57689"}
+                &#8377; {finalAmount}
               </div>
             </div>
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant={"emerald"} className="w-full">
+          <Button
+            variant={"emerald"}
+            className="w-full"
+            onClick={calculatePpfReturns}
+          >
             Calculate Returns
           </Button>
         </CardFooter>
