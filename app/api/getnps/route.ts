@@ -1,4 +1,3 @@
-import mssqlconnect from "@lib/mssqlconnect";
 import { NextRequest, NextResponse } from "next/server";
 
 const sql = require("mssql");
@@ -7,7 +6,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     // Connect to the MongoDB database
     //await connectMongoDb();
-    await mssqlconnect();
+
     //Fetch all the countries data
     const result =
       await sql.query`SELECT * FROM Country_Master ORDER BY COUNTRY_NAME ASC`;
