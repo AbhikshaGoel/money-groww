@@ -50,7 +50,7 @@ const PPFCalculator = () => {
   };
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
+    <div className="p-2 grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle>PPF Calculator</CardTitle>
@@ -58,7 +58,10 @@ const PPFCalculator = () => {
         </CardHeader>
         <CardContent className="grid gap-6">
           <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="text-emerald-500">&#8377;</div>
+
             <Input
+              className="text-emerald-500"
               id="investment-amount"
               type="number"
               placeholder={
@@ -91,7 +94,7 @@ const PPFCalculator = () => {
             <Label className="w-[60%]" htmlFor="number">
               Time Period (In Years)
             </Label>
-            <Input id="time-period" placeholder="15" value={timePeriod} />
+            <Input id="time-period" placeholder="15%" value={timePeriod} />
           </div>
           <Slider
             onValueChange={handleInterestSlider}
@@ -102,9 +105,29 @@ const PPFCalculator = () => {
           />
           <div className="flex items-center space-x-2 md:space-x-4">
             <Label className="w-[60%]" htmlFor="number">
-              Rate of Interest
+              Rate of Interest (In %)
             </Label>
-            <Input id="time-period" placeholder="15%" />
+            <Input id="time-period" placeholder="7.1%" />
+          </div>
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-col text-base">
+              Invested Amount
+              <div className="text-lg text-indigo-500 font-bold">
+                &#8377; {"57689"}
+              </div>
+            </div>
+            <div className="flex flex-col text-base">
+              Interest Earned
+              <div className="text-lg text-sky-500 font-bold">
+                &#8377; {"57689"}
+              </div>
+            </div>
+            <div className="flex flex-col text-base">
+              Accumulated Amount
+              <div className="text-lg text-emerald-500 font-bold">
+                &#8377; {"57689"}
+              </div>
+            </div>
           </div>
         </CardContent>
         <CardFooter>
