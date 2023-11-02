@@ -13,11 +13,44 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
-import { CardsStats } from "../cards/stats";
-import { CardsCalendar } from "../cards/calendar";
-import { CardsActivityGoal } from "../cards/activity-goal";
-
+import { CardsMetric } from "../cards/metric";
+const data1 = [
+  {
+    i: 0,
+    interest: 400,
+    amount: 240,
+  },
+  {
+    i: 1,
+    interest: 300,
+    amount: 139,
+  },
+  {
+    i: 2,
+    interest: 200,
+    amount: 980,
+  },
+  {
+    i: 3,
+    interest: 278,
+    amount: 390,
+  },
+  {
+    i: 4,
+    interest: 189,
+    amount: 480,
+  },
+  {
+    i: 5,
+    interest: 239,
+    amount: 380,
+  },
+  {
+    i: 6,
+    interest: 349,
+    amount: 430,
+  },
+];
 const PPFCalculator = () => {
   const [isYearly, setIsYearly] = useState(true);
   const [amount, setAmount] = useState(15000);
@@ -26,7 +59,10 @@ const PPFCalculator = () => {
   const [interestRate, setInterestRate] = useState("7.1");
   const [investedAmount, setInvestedAmount] = useState(225000);
   const [interestAmount, setInterestAmount] = useState(181823);
+  var d: { i: number; interest: number; amount: number }[] = [];
   //var investedAmount = 0;
+
+  const [data, setData] = useState(d); // Use state to store the data
 
   const calculatePpfReturns = () => {
     const principal = amount;
@@ -50,21 +86,17 @@ const PPFCalculator = () => {
     const timePeriodInYears = timePeriod;
     let openingBalance = 0;
     var interest;
+    var newData = []; // Create a new array to store the fresh data
 
     for (let i = 1; i <= timePeriodInYears; i++) {
       openingBalance += principal;
       interest = Math.round(openingBalance * interestRateDecimal);
       openingBalance += interest;
-      console.log(
-        "amount: " + openingBalance,
-        "interest: " + interest,
-        "timePeriodInYears: ",
-        i
-      );
+      newData.push({ i: i, interest: interest, amount: openingBalance }); // Push data to the new array
     }
 
+    setData(newData); // Update the data state with the fresh data
     setFinalAmount(openingBalance);
-    //setAccumulatedAmount(openingBalance);
   };
 
   const toggleFrequency = () => {
@@ -162,7 +194,11 @@ const PPFCalculator = () => {
             </Button>
           </CardFooter>
         </Card>
-        <CardsStats />
+        {data.length ? (
+          <CardsMetric data={data} />
+        ) : (
+          <CardsMetric data={data1} />
+        )}
       </div>
     </>
   );

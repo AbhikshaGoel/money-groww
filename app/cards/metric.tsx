@@ -1,5 +1,12 @@
 import { useTheme } from "next-themes";
-import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { useConfig } from "@/hooks/use-config";
 import {
@@ -11,38 +18,16 @@ import {
 } from "@/components/ui/card";
 import { themes } from "@/registry/themes";
 
-const data = [
-  {
-    average: 400,
-    today: 240,
-  },
-  {
-    average: 300,
-    today: 139,
-  },
-  {
-    average: 200,
-    today: 980,
-  },
-  {
-    average: 278,
-    today: 390,
-  },
-  {
-    average: 189,
-    today: 480,
-  },
-  {
-    average: 239,
-    today: 380,
-  },
-  {
-    average: 349,
-    today: 430,
-  },
-];
+type DataPoint = {
+  i: number;
+  interest: number;
+  amount: number;
+};
 
-export function CardsMetric() {
+type DataArray = DataPoint[];
+
+export function CardsMetric({ data }: { data: DataArray }) {
+  console.log("Data array", data);
   const { theme: mode } = useTheme();
   const [config] = useConfig();
 
@@ -51,9 +36,10 @@ export function CardsMetric() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Exercise Minutes</CardTitle>
+        <CardTitle>Total Returns</CardTitle>
         <CardDescription>
-          Your excercise minutes are ahead of where you normally are.
+          Your Total PPF return are
+          <span className="text-emerald-400"> &#8377;{"190233"}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-4">
@@ -68,6 +54,21 @@ export function CardsMetric() {
                 bottom: 0,
               }}
             >
+              <XAxis
+                dataKey="i"
+                type="number"
+                domain={["dataMin", "dataMax"]}
+                label={{ value: "Years", position: "insideBottomRight" }}
+              />
+              <YAxis
+                type="number"
+                domain={["dataMin", "dataMax"]}
+                label={{
+                  value: "Value",
+                  angle: -90,
+                  position: "insideLeft",
+                }}
+              />
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
@@ -75,18 +76,18 @@ export function CardsMetric() {
                       <div className="rounded-lg border bg-background p-2 shadow-sm">
                         <div className="grid grid-cols-2 gap-2">
                           <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Average
+                            <span className="text-xs text-muted-foreground">
+                              Interest Earned
                             </span>
-                            <span className="font-bold text-muted-foreground">
+                            <span className="font-normal text-emerald-500">
                               {payload[0].value}
                             </span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Today
+                            <span className="text-xs text-muted-foreground">
+                              Total Amount
                             </span>
-                            <span className="font-bold">
+                            <span className="font-bold text-emerald-500">
                               {payload[1].value}
                             </span>
                           </div>
@@ -100,8 +101,8 @@ export function CardsMetric() {
               />
               <Line
                 type="monotone"
+                dataKey="interest"
                 strokeWidth={2}
-                dataKey="average"
                 activeDot={{
                   r: 6,
                   style: { fill: "var(--theme-primary)", opacity: 0.25 },
@@ -118,7 +119,7 @@ export function CardsMetric() {
               />
               <Line
                 type="monotone"
-                dataKey="today"
+                dataKey="amount"
                 strokeWidth={2}
                 activeDot={{
                   r: 8,
