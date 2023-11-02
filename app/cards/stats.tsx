@@ -5,6 +5,10 @@ import { useConfig } from "@/hooks/use-config";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { themes } from "@/registry/themes";
 
+interface CardContentProps {
+  amount?: number;
+  data?: any;
+}
 const data = [
   {
     revenue: 10400,
@@ -50,10 +54,10 @@ export function CardsStats() {
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-base font-normal">Total Revenue</CardTitle>
+          <CardTitle className="text-base font-normal">Total Amount</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">$15,231.89</div>
+          <div className="text-2xl font-bold">&#8377; 15,231.89</div>
           <p className="text-xs text-muted-foreground">
             +20.1% from last month
           </p>
