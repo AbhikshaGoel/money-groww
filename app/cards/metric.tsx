@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
 import {
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -30,6 +31,7 @@ export function CardsMetric({ data }: { data: DataArray }) {
   console.log("Data array", data);
   const { theme: mode } = useTheme();
   const [config] = useConfig();
+  const finalAmount = data[data.length - 1].amount;
 
   const theme = themes.find((theme) => theme.name === config.theme);
 
@@ -39,11 +41,11 @@ export function CardsMetric({ data }: { data: DataArray }) {
         <CardTitle>Total Returns</CardTitle>
         <CardDescription>
           Your Total PPF return are
-          <span className="text-emerald-400"> &#8377;{"190233"}</span>
+          <span className="text-emerald-400"> &#8377;{finalAmount}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-4">
-        <div className="h-[200px]">
+        <div className="h-[250px]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
@@ -62,7 +64,7 @@ export function CardsMetric({ data }: { data: DataArray }) {
               />
               <YAxis
                 type="number"
-                domain={["dataMin", "dataMax"]}
+                domain={["0", "dataMax"]}
                 label={{
                   value: "Value",
                   angle: -90,
@@ -79,7 +81,7 @@ export function CardsMetric({ data }: { data: DataArray }) {
                             <span className="text-xs text-muted-foreground">
                               Interest Earned
                             </span>
-                            <span className="font-normal text-emerald-500">
+                            <span className="font-normal ">
                               {payload[0].value}
                             </span>
                           </div>
@@ -105,12 +107,12 @@ export function CardsMetric({ data }: { data: DataArray }) {
                 strokeWidth={2}
                 activeDot={{
                   r: 6,
-                  style: { fill: "var(--theme-primary)", opacity: 0.25 },
+                  style: { fill: "var(--theme-primary)" },
                 }}
                 style={
                   {
                     stroke: "var(--theme-primary)",
-                    opacity: 0.25,
+
                     "--theme-primary": `hsl(${
                       theme?.cssVars[mode === "dark" ? "dark" : "light"].primary
                     })`,
@@ -123,16 +125,9 @@ export function CardsMetric({ data }: { data: DataArray }) {
                 strokeWidth={2}
                 activeDot={{
                   r: 8,
-                  style: { fill: "var(--theme-primary)" },
+                  style: { fill: "#82ca9d" },
                 }}
-                style={
-                  {
-                    stroke: "var(--theme-primary)",
-                    "--theme-primary": `hsl(${
-                      theme?.cssVars[mode === "dark" ? "dark" : "light"].primary
-                    })`,
-                  } as React.CSSProperties
-                }
+                stroke="#82ca9d"
               />
             </LineChart>
           </ResponsiveContainer>
