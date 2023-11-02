@@ -60,7 +60,11 @@ export function CardsMetric({ data }: { data: DataArray }) {
                 dataKey="i"
                 type="number"
                 domain={["dataMin", "dataMax"]}
-                label={{ value: "Years", position: "insideBottomRight" }}
+                label={{
+                  value: "Years",
+                  position: "insideBottomRight",
+                  style: { fill: "#000" },
+                }}
               />
               <YAxis
                 type="number"
@@ -106,7 +110,7 @@ export function CardsMetric({ data }: { data: DataArray }) {
                 dataKey="interest"
                 strokeWidth={2}
                 activeDot={{
-                  r: 6,
+                  r: 2,
                   style: { fill: "var(--theme-primary)" },
                 }}
                 style={
@@ -124,7 +128,7 @@ export function CardsMetric({ data }: { data: DataArray }) {
                 dataKey="amount"
                 strokeWidth={2}
                 activeDot={{
-                  r: 8,
+                  r: 4,
                   style: { fill: "#82ca9d" },
                 }}
                 stroke="#82ca9d"
