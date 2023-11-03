@@ -1,9 +1,6 @@
 "use client";
 import { CardsCalendar } from "./calendar";
-import { CardsChat } from "./chat";
-import { CardsCookieSettings } from "./cookie-settings";
-import { CardsCreateAccount } from "./create-account";
-import { CardsMetric } from "./metric";
+
 import { CardsPaymentMethod } from "./payment-method";
 import { CardsReportIssue } from "./report-issue";
 import { CardsShare } from "./share";
@@ -26,12 +23,10 @@ export default function CardsDemo() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <div className="space-y-4 xl:space-y-4">
             <CardsTeamMembers />
-            <CardsCookieSettings />
+
             <CardsPaymentMethod />
           </div>
           <div className="space-y-4 xl:space-y-4">
-            <CardsChat />
-            <CardsCreateAccount />
             <div className="hidden xl:block">
               <CardsReportIssue />
             </div>
