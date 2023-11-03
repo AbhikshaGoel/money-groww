@@ -12,7 +12,43 @@ import React from "react";
 import { ResponsiveContainer, Tooltip, Line, Pie } from "recharts";
 import { useTheme } from "next-themes";
 import { useConfig } from "@/hooks/use-config";
-
+const data = [
+  {
+    i: 0,
+    interest: 400,
+    amount: 240,
+  },
+  {
+    i: 1,
+    interest: 300,
+    amount: 139,
+  },
+  {
+    i: 2,
+    interest: 200,
+    amount: 980,
+  },
+  {
+    i: 3,
+    interest: 278,
+    amount: 390,
+  },
+  {
+    i: 4,
+    interest: 189,
+    amount: 480,
+  },
+  {
+    i: 5,
+    interest: 239,
+    amount: 380,
+  },
+  {
+    i: 6,
+    interest: 349,
+    amount: 430,
+  },
+];
 interface CardPieProps {
   dataPie?: Object;
 }
