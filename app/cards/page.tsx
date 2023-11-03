@@ -21,9 +21,7 @@ export default function CardsDemo() {
           <div className="pt-3 sm:pl-2 sm:pt-0 xl:pl-4">
             <CardsActivityGoal />
           </div>
-          <div className="pt-3 sm:col-span-2 xl:pt-4">
-            <CardsMetric />
-          </div>
+          <div className="pt-3 sm:col-span-2 xl:pt-4"></div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <div className="space-y-4 xl:space-y-4">
@@ -46,9 +44,7 @@ export default function CardsDemo() {
           <div className="pt-3 sm:pl-2 sm:pt-0 xl:pl-3">
             <CardsActivityGoal />
           </div>
-          <div className="pt-3 sm:col-span-2 xl:pt-3">
-            <CardsMetric />
-          </div>
+          <div className="pt-3 sm:col-span-2 xl:pt-3"></div>
         </div>
         <CardsShare />
         <div className="xl:hidden">
