@@ -51,6 +51,33 @@ const data1 = [
     amount: 430,
   },
 ];
+
+function calculateFutureValue(
+  principals: any[],
+  monthlyInvestments: any[],
+  interestRates: string | any[],
+  years: number
+) {
+  const periods = years * 12;
+  let futureValue = 0;
+
+  for (let t = 1; t <= periods; t++) {
+    const principal = principals[t - 1];
+    const monthlyInvestment = monthlyInvestments[t - 1];
+
+    // Get the index for the interest rate based on the quarter
+    const quarterIndex = Math.floor((t - 1) / 3) % interestRates.length;
+    const quarterlyInterestRate = interestRates[quarterIndex];
+    const monthlyInterestRate = quarterlyInterestRate / 12;
+
+    futureValue +=
+      principal * Math.pow(1 + monthlyInterestRate, t) +
+      monthlyInvestment *
+        ((Math.pow(1 + monthlyInterestRate, t) - 1) / monthlyInterestRate);
+  }
+
+  return futureValue.toFixed(2);
+}
 const PPFCalculator = () => {
   const [isYearly, setIsYearly] = useState(true);
   const [amount, setAmount] = useState(15000);
@@ -120,6 +147,8 @@ const PPFCalculator = () => {
                 className="text-emerald-500"
                 id="investment-amount"
                 type="number"
+                min="1"
+                max="150000"
                 placeholder={
                   isYearly ? "Yearly Investment" : "Monthly Investment"
                 }
@@ -148,6 +177,8 @@ const PPFCalculator = () => {
                 id="time-period"
                 type="number"
                 placeholder="15"
+                min="1"
+                max="100"
                 value={timePeriod}
                 onChange={(e) => setTimePeriod(parseInt(e.target.value, 10))}
               />
@@ -160,6 +191,8 @@ const PPFCalculator = () => {
                 id="interest-rate"
                 placeholder="7.1%"
                 value={interestRate}
+                min="-10"
+                max="50"
                 onChange={(e) => setInterestRate(e.target.value)}
               />
             </div>
@@ -194,11 +227,7 @@ const PPFCalculator = () => {
             </Button>
           </CardFooter>
         </Card>
-        {data.length ? (
-          <CardsMetric data={data} />
-        ) : (
-          <CardsMetric data={data1} />
-        )}
+        <CardsMetric data={data.length ? data : data1} />
       </div>
     </>
   );

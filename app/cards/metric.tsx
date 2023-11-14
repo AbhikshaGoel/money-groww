@@ -24,6 +24,12 @@ type DataPoint = {
   interest: number;
   amount: number;
 };
+// Updated interest rates based on the provided information
+const interestRates = [
+  0.12, 0.11, 0.095, 0.09, 0.08, 0.086, 0.088, 0.087, 0.087, 0.087, 0.081, 0.08,
+  0.079, 0.078, 0.076, 0.08, 0.079, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071,
+  0.071, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071, 0.071,
+];
 
 type DataArray = DataPoint[];
 
